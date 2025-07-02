@@ -1,0 +1,22 @@
+#Dependencias 
+node_modules/
+
+#Salidas de Angular
+dist/
+out-tsc/
+.angular/
+
+# Archivo de datos de JSON-Server
+db.json 
+
+# Log de npm/yarn
+npm-debug.log*
+yarn-error-log*
+
+#Ajustes locales de Vs Code
+.vscode/
+
+##node_modules/: Elimina todas las dependencias instaladas
+#dist/, out-tsc/, .angular/: carpetas de build y cache de angular
+#db.jason: tu fichero real de base de datos local de JSON-Server
+#npm-debug.log*, yarn-error.log*: logs de errores de instalacion

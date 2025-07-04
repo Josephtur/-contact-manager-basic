@@ -1,25 +1,31 @@
-// Importa la configuración de la app y una función para optimizar la detección de cambios
+// Importamos tipos y funciones necesarias de Angular
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-
-// Importa la función que configura el enrutador (routing)
 import { provideRouter } from '@angular/router';
-
-// Importa las rutas de la aplicación
-import { routes } from './app.routes';
-
-// Importa el cliente HTTP standalone para hacer peticiones (GET, POST, etc.)
 import { provideHttpClient } from '@angular/common/http';
+import { routes } from './app.routes';   // Nuestro array de rutas definido en app.routes.ts
 
-// Configuración principal de la aplicación Angular
+// Configuración global de la aplicación Angular (sin NgModule)
 export const appConfig: ApplicationConfig = {
+  // Aquí registramos los proveedores (services, routers, clientes HTTP, etc.)
   providers: [
-    // Mejora el rendimiento agrupando eventos antes de activar detección de cambios
+    // 1. Cambio de detección optimizado:
+    //    provideZoneChangeDetection() reemplaza la detección de cambios clásica
+    //    por una basada en zonas que agrupa múltiples eventos (coalescing)
+    //    para mejorar el rendimiento. 
+    //    Con { eventCoalescing: true } activamos esta agrupación.
     provideZoneChangeDetection({ eventCoalescing: true }),
 
-    // Proporciona el sistema de enrutamiento con las rutas definidas
+    // 2. Enrutamiento:
+    //    provideRouter(routes) inicializa el Router de Angular con nuestro
+    //    conjunto de rutas. Permite usar <router-outlet> y directivas
+    //    como [routerLink] en componentes.
     provideRouter(routes),
 
-    // Activa el HttpClient para poder hacer peticiones HTTP en los servicios
+    // 3. Cliente HTTP:
+    //    provideHttpClient() registra HttpClient en el inyector global,
+    //    haciendo posible inyectarlo en servicios y componentes
+    //    para realizar peticiones HTTP (GET, POST, etc.).
     provideHttpClient()
-  ]
+  ]
 };
+
